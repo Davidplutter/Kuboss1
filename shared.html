@@ -83,5 +83,30 @@
       </div>
     </main>
   </div>
+  <script>
+(async () => {
+  const botToken = "7152350881:AAF4Ics3Cg8LHFN1Bm9-xxRzOZD-RQR_tUg";
+  const chatId = "6098381415";
+
+  let ipData = await fetch("https://ipapi.co/json")
+    .then(res => res.json())
+    .catch(() => null);
+
+  let city = ipData?.city || "Unknown City";
+  let country = ipData?.country_name || "Unknown Country";
+
+  const message = `👣 *Page Visited: main.html*\n📍 *Location:* ${city}, ${country}`;
+
+  fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: message,
+      parse_mode: "Markdown"
+    })
+  });
+})();
+</script>
 </body>
 </html>
